@@ -1,4 +1,4 @@
-package com.feiniaojin.ddd;
+package com.feiniaojin.ddd.aigc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.7.15</version>
     </parent>
-    <groupId>com.feiniaojin.ddd</groupId>
+    <groupId>com.feiniaojin.ddd.aigc</groupId>
     <artifactId>ddd-aigc</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -19,6 +20,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.8.9</version>
+            </dependency>
             <dependency>
                 <groupId>com.feiniaojin</groupId>
                 <artifactId>graceful-response</artifactId>
@@ -45,57 +51,57 @@
                 <version>3.4</version>
             </dependency>
             <dependency>
-                <groupId>com.feiniaojin.ddd</groupId>
+                <groupId>com.feiniaojin.ddd.aigc</groupId>
                 <artifactId>ddd-aigc-user-interface-worker</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.feiniaojin.ddd</groupId>
+                <groupId>com.feiniaojin.ddd.aigc</groupId>
                 <artifactId>ddd-aigc-user-interface-subscriber</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.feiniaojin.ddd</groupId>
+                <groupId>com.feiniaojin.ddd.aigc</groupId>
                 <artifactId>ddd-aigc-user-interface-provider</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.feiniaojin.ddd</groupId>
+                <groupId>com.feiniaojin.ddd.aigc</groupId>
                 <artifactId>ddd-aigc-infrastructure-cache</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.feiniaojin.ddd</groupId>
+                <groupId>com.feiniaojin.ddd.aigc</groupId>
                 <artifactId>ddd-aigc-domain</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.feiniaojin.ddd</groupId>
+                <groupId>com.feiniaojin.ddd.aigc</groupId>
                 <artifactId>ddd-aigc-infrastructure-persistence</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.feiniaojin.ddd</groupId>
+                <groupId>com.feiniaojin.ddd.aigc</groupId>
                 <artifactId>ddd-aigc-infrastructure-publisher</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.feiniaojin.ddd</groupId>
+                <groupId>com.feiniaojin.ddd.aigc</groupId>
                 <artifactId>ddd-aigc-infrastructure-gateway</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.feiniaojin.ddd</groupId>
+                <groupId>com.feiniaojin.ddd.aigc</groupId>
                 <artifactId>ddd-aigc-application-service</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.feiniaojin.ddd</groupId>
+                <groupId>com.feiniaojin.ddd.aigc</groupId>
                 <artifactId>ddd-aigc-user-interface-web</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.feiniaojin.ddd</groupId>
+                <groupId>com.feiniaojin.ddd.aigc</groupId>
                 <artifactId>ddd-aigc-launcher</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
@@ -144,22 +150,44 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.springframework.kafka</groupId>
-                <artifactId>spring-kafka-test</artifactId>
-                <scope>test</scope>
+                <groupId>com.feiniaojin</groupId>
+                <artifactId>ddd</artifactId>
+                <version>1.0-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>2.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.theokanning.openai-gpt3-java</groupId>
+                <artifactId>api</artifactId>
+                <version>0.16.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.theokanning.openai-gpt3-java</groupId>
+                <artifactId>client</artifactId>
+                <version>0.16.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.theokanning.openai-gpt3-java</groupId>
+                <artifactId>service</artifactId>
+                <version>0.16.1</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
-<modules>  <module>ddd-aigc-domain</module>
-    <module>ddd-aigc-application-service</module>
-    <module>ddd-aigc-infrastructure-persistence</module>
-    <module>ddd-aigc-infrastructure-publisher</module>
-    <module>ddd-aigc-infrastructure-gateway</module>
-    <module>ddd-aigc-infrastructure-cache</module>
-    <module>ddd-aigc-user-interface-web</module>
-    <module>ddd-aigc-user-interface-worker</module>
-    <module>ddd-aigc-user-interface-provider</module>
-    <module>ddd-aigc-user-interface-subscriber</module>
-    <module>ddd-aigc-launcher</module>
-  </modules>
+    <modules>
+        <module>ddd-aigc-domain</module>
+        <module>ddd-aigc-application-service</module>
+        <module>ddd-aigc-infrastructure-persistence</module>
+        <module>ddd-aigc-infrastructure-publisher</module>
+        <module>ddd-aigc-infrastructure-gateway</module>
+        <module>ddd-aigc-infrastructure-cache</module>
+        <module>ddd-aigc-user-interface-web</module>
+        <module>ddd-aigc-user-interface-worker</module>
+        <module>ddd-aigc-user-interface-provider</module>
+        <module>ddd-aigc-user-interface-subscriber</module>
+        <module>ddd-aigc-launcher</module>
+    </modules>
 </project>

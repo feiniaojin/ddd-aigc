@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  NOTICE:本文件由代码生成器code-generator生成
+  github：https://github.com/feiniaojin/code-generator
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.feiniaojin.ddd.aigc.infrastructure.persistence.mapper.DiaryMapper">
+    <resultMap id="BaseResultMap" type="com.feiniaojin.ddd.aigc.infrastructure.persistence.data.Diary">
+        <result column="id" property="id"/>
+        <result column="diary_id" property="diaryId"/>
+        <result column="content" property="content"/>
+        <result column="diary_date" property="diaryDate"/>
+        <result column="diary_date_str" property="diaryDateStr"/>
+        <result column="uid" property="uid"/>
+        <result column="deleted" property="deleted"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="modified_by" property="modifiedBy"/>
+        <result column="modified_time" property="modifiedTime"/>
+        <result column="version" property="version"/>
+    </resultMap>
+    <sql id="BaseColumn">
+        id,
+        diary_id,
+        content,
+        diary_date,
+        diary_date_str,
+        uid,
+        deleted,
+        created_by,
+        created_time,
+        modified_by,
+        modified_time,
+        version
+    </sql>
+    <insert id="insert" parameterType="com.feiniaojin.ddd.aigc.infrastructure.persistence.data.Diary">
+        insert into t_diary (
+        id,
+        diary_id,
+        content,
+        diary_date,
+        diary_date_str,
+        uid,
+        deleted,
+        created_by,
+        created_time,
+        modified_by,
+        modified_time,
+        version
+        )
+        <trim prefix="values (" suffix=")">
+            #{id},
+            #{diaryId},
+            #{content},
+            #{diaryDate},
+            #{diaryDateStr},
+            #{uid},
+            #{deleted},
+            #{createdBy},
+            #{createdTime},
+            #{modifiedBy},
+            #{modifiedTime},
+            #{version}
+        </trim>
+    </insert>
+    <select id="findOneById" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumn"/>
+        from t_diary where id=#{id}
+    </select>
+
+    <select id="countForPageList" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_diary
+        <where>
+            <if test="uid != null">
+                and uid=#{uid}
+            </if>
+        </where>
+    </select>
+
+    <select id="pageList" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumn"/>
+        from t_diary
+        <where>
+            <if test="uid != null">
+                and uid=#{uid}
+            </if>
+        </where>
+        order by diary_date_str desc
+        limit #{limitStart},#{limitEnd}
+    </select>
+</mapper>

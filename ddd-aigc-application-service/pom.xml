@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>ddd-aigc</artifactId>
-        <groupId>com.feiniaojin.ddd</groupId>
+        <groupId>com.feiniaojin.ddd.aigc</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -18,23 +18,23 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.feiniaojin.ddd</groupId>
+            <groupId>com.feiniaojin.ddd.aigc</groupId>
             <artifactId>ddd-aigc-domain</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.feiniaojin.ddd</groupId>
+            <groupId>com.feiniaojin.ddd.aigc</groupId>
             <artifactId>ddd-aigc-infrastructure-gateway</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.feiniaojin.ddd</groupId>
+            <groupId>com.feiniaojin.ddd.aigc</groupId>
             <artifactId>ddd-aigc-infrastructure-cache</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.feiniaojin.ddd</groupId>
+            <groupId>com.feiniaojin.ddd.aigc</groupId>
             <artifactId>ddd-aigc-infrastructure-persistence</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.feiniaojin.ddd</groupId>
+            <groupId>com.feiniaojin.ddd.aigc</groupId>
             <artifactId>ddd-aigc-infrastructure-publisher</artifactId>
         </dependency>
         <dependency>
@@ -44,6 +44,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.feiniaojin</groupId>
+            <artifactId>graceful-response</artifactId>
         </dependency>
     </dependencies>
 
