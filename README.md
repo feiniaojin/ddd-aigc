@@ -36,3 +36,12 @@ https://github.com/feiniaojin/ddd-archetype
 # 运行截图
 
 [![pinWL0f.png](https://z1.ax1x.com/2023/10/31/pinWL0f.png)](https://imgse.com/i/pinWL0f)
+
+# 贡献者
+<a href="https://github.com/feiniaojin/ddd-aigc/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=feiniaojin/ddd-aigc" />
+</a>
+
+# 点赞趋势
+
+[![Star History Chart](https://api.star-history.com/svg?repos=feiniaojin/ddd-aigc&type=Date)](https://star-history.com/#feiniaojin/ddd-aigc&Date)
