@@ -45,3 +45,7 @@ https://github.com/feiniaojin/ddd-archetype
 # 点赞趋势
 
 [![Star History Chart](https://api.star-history.com/svg?repos=feiniaojin/ddd-aigc&type=Date)](https://star-history.com/#feiniaojin/ddd-aigc&Date)
+
+# DDD学习交流群
+欢迎加入DDD交流群。微信扫以下二维码添加作者微信，标注“DDD”，好友申请通过后拉您进群。
+[![pi1rmB6.jpg](https://z1.ax1x.com/2023/11/08/pi1rmB6.jpg)](https://imgse.com/i/pi1rmB6)
