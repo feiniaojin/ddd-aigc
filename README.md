@@ -2,13 +2,11 @@
 
 # DDD-AIGC
 
-本项目是《悟道领域驱动设计》（英文名：Thinking in Domain Driven Design）随书的案例代码。
+本项目是作者的新书《悟道领域驱动设计》的随书案例代码。《悟道领域驱动设计》目前已上架各大电商平台，感兴趣的朋友可以帮忙支持一下。
 
-《悟道领域驱动设计》在线电子书地址：
+<img alt="悟道领域驱动设计" src="assets/book.png" style="width: 50%">
 
-```text
-https://github.com/feiniaojin/Thinking-in-DDD
-```
+购买链接：https://item.jd.com/14835288.html
 
 本项目实现了一个贴纸日记的AIGC应用。
 

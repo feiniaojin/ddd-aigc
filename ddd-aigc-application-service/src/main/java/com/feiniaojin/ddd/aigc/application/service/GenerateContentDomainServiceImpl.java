@@ -33,7 +33,7 @@ public class GenerateContentDomainServiceImpl implements StickyNoteGenerateConte
 
         //1.加载日记下的所有贴纸，由于不修改状态，我们不需要加载领域模型
         List<StickyNote> noteList = stickyNoteJdbcRepository.queryListByDiaryId(diaryEntityId.getValue());
-        //2.拼写报文
+        //2.拼接报文
         if (CollectionUtils.isEmpty(noteList)) {
             return "";
         }
@@ -42,35 +42,35 @@ public class GenerateContentDomainServiceImpl implements StickyNoteGenerateConte
 
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
 
         for (StickyNote note : noteList) {
             //08:00:00 和aaa、bbb一起，正文
             if (note.getOccurrenceTime() != null) {
-                sb.append("时间：");
-                sb.append(dateFormat.format(note.getOccurrenceTime()));
-                sb.append("，");
+                stringBuilder.append("时间：");
+                stringBuilder.append(dateFormat.format(note.getOccurrenceTime()));
+                stringBuilder.append("，");
             }
 
             String participants = note.getParticipants();
             if (StringUtils.isNoneBlank(participants)) {
-                sb.append("参与者：");
+                stringBuilder.append("参与者：");
                 List<String> pList = gson.fromJson(participants, new TypeToken<ArrayList<String>>() {
                 }.getType());
                 for (String p : pList) {
-                    sb.append(p);
-                    sb.append("、");
+                    stringBuilder.append(p);
+                    stringBuilder.append("、");
                 }
-                sb.deleteCharAt(sb.lastIndexOf("、"));
-                sb.append("，");
+                stringBuilder.deleteCharAt(stringBuilder.lastIndexOf("、"));
+                stringBuilder.append("，");
             }
 
             //活动
-            sb.append("活动：");
-            sb.append(note.getContent());
-            sb.append("；");
+            stringBuilder.append("活动：");
+            stringBuilder.append(note.getContent());
+            stringBuilder.append("；");
         }
-        String noteContents = sb.toString();
+        String noteContents = stringBuilder.toString();
         //2.根据贴纸聚合的集合，生成文本
         String generateContent = openAiGateway.generateContent(uid, noteContents);
         return generateContent;
