@@ -12,7 +12,7 @@
           class="sticker-on-board"
           :style="stickerStyle(sticker)"
       >
-        <div class="participant">{{ sticker.participant }}</div>
+        <div class="participants">{{ sticker.participants }}</div>
         <div class="event">{{ sticker.event }}</div>
       </div>
     </div>

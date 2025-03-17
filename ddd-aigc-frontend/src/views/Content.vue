@@ -27,8 +27,8 @@ onMounted(() => {
 function generateDiaryContent() {
   generated.value = null
   // 创建 SSE 连接
-  var url = "http://localhost:5173/api/stickyNote/generateDiaryContentSse?diaryId="
-      + initData.value.diary + "&uid=" + initData.value.uid + "&userInput=" + userInput.value
+  const url = "http://localhost:5173/api/stickyNote/generateDiaryContentSse?diaryId="
+      + initData.value.diary + "&uid=" + initData.value.uid + "&userInput=" + userInput.value;
   eventSource.value = new EventSource(url)
 
   // 监听消息事件
