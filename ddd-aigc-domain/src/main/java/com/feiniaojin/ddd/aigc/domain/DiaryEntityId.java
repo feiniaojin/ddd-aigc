@@ -4,9 +4,6 @@ import com.feiniaojin.ddd.AbstractEntityId;
 
 public class DiaryEntityId extends AbstractEntityId<String> {
 
-    public DiaryEntityId() {
-    }
-
     public DiaryEntityId(String value) {
         super(value);
     }

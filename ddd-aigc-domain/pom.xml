@@ -13,8 +13,8 @@
     <description>领域模型层，用于放置领域模型，包括实体、值对象、Repository、Factory等的定义</description>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>

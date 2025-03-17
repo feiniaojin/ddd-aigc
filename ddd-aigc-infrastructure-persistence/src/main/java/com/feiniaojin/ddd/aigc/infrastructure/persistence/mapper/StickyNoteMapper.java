@@ -1,10 +1,10 @@
 package com.feiniaojin.ddd.aigc.infrastructure.persistence.mapper;
 
 import com.feiniaojin.ddd.aigc.infrastructure.persistence.data.StickyNote;
+import jakarta.annotation.Generated;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Generated;
 
 /**
  * 表名称：t_sticky_note自动生成的Mapper

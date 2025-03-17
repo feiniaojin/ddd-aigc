@@ -18,6 +18,9 @@ public interface StickyNoteJdbcRepository extends CrudRepository<StickyNote, Lon
     @Query("select * from t_sticky_note where sticky_note_id=:stickyNoteId and deleted=0 limit 1")
     StickyNote queryOneByBizId(String stickyNoteId);
 
+    @Query("select sticky_note_id from t_sticky_note where diary_id=:diaryId and deleted=0")
+    List<String> queryStickyNoteIdByDiaryId(String diaryId);
+
     @Query("select * from t_sticky_note where diary_id=:diaryId and deleted=0")
     List<StickyNote> queryListByDiaryId(String diaryId);
 }

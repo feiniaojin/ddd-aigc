@@ -7,9 +7,6 @@ import com.feiniaojin.ddd.AbstractEntityId;
  */
 public class StickyNoteEntityId extends AbstractEntityId<String> {
 
-    public StickyNoteEntityId() {
-    }
-
     public StickyNoteEntityId(String value) {
         super(value);
     }

@@ -40,8 +40,8 @@ public class StickyNoteEntityFactoryImpl implements StickyNoteEntityFactory {
         entity.setDeleted(0);
 
         Date date = new Date();
-        entity.setCreatedTime(date);
-        entity.setModifiedTime(date);
+        entity.setCreatedDate(date);
+        entity.setLastModifiedDate(date);
 
         return entity;
     }

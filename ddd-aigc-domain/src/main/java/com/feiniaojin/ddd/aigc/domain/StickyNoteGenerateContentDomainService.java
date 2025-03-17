@@ -6,5 +6,5 @@ package com.feiniaojin.ddd.aigc.domain;
  */
 public interface StickyNoteGenerateContentDomainService {
 
-    String generateContent(DiaryEntityId diaryEntityId);
+    String generateContent(DiaryEntityId diaryEntityId, String userInput);
 }

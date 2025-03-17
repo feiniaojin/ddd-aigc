@@ -1,15 +1,19 @@
 server:
   port: 9899
+  servlet:
+    encoding:
+      charset: UTF-8
 spring:
+  mvc:
+    async:
+      request-timeout: 60000
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
-  resources:
-    static-locations: classpath:/static/,classpath:/views/
   datasource:
     url: jdbc:mysql://localhost:3306/db_ddd_aigc
-    username: feiniaojin
-    password: Qinyujie
+    username: root
+    password: abc123456
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
@@ -20,9 +24,49 @@ spring:
       pool-name: DatebookHikariCP
       max-lifetime: 1800000
       connection-timeout: 10000
+  ai:
+    openai:
+      moderation:
+        api-key: key
+      chat:
+        enabled: false
+      embedding:
+        enabled: false
+      image:
+        enabled: false
+      audio:
+        transcription:
+          enabled: false
+        speech:
+          enabled: false
+    ollama:
+      chat:
+        enabled: false
+    # 定义所有服务商的配置模板
+    providers:
+      deepseek-official:
+        base-url: https://api.deepseek.com/v1
+        api-key: replace_with_your_api_key
+        model: deepseek-reasoner
+      siliconflow:
+        base-url: https://api.siliconflow.cn/v1
+        api-key: replace_with_your_api_key
+        model: deepseek-ai/DeepSeek-R1
+      openai:
+        base-url: https://api.openai.com/v1
+        api-key: replace_with_your_api_key
+        model: gpt-4o-mini
+      ollama:
+        base-url: http://localhost:11434
+        model: deepseek-r1:1.5b
+  web:
+    resources:
+      static-locations: classpath:/static/,classpath:/views/
 graceful-response:
   print-exception-in-global-advice: true
 
 ddd-aigc:
-  open-ai:
-    token: replaceWithYourToken
+    provider-name: ollama
+    default-system-message: 根据以下提示，生成一篇日记。：
+
+

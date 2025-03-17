@@ -36,8 +36,8 @@ public class DiaryEntityFactoryImpl implements DiaryEntityFactory {
         //维护层超类型
         diaryEntity.setDeleted(0);
         Date date = new Date();
-        diaryEntity.setCreatedTime(date);
-        diaryEntity.setModifiedTime(date);
+        diaryEntity.setCreatedDate(date);
+        diaryEntity.setLastModifiedDate(date);
         return diaryEntity;
     }
 }

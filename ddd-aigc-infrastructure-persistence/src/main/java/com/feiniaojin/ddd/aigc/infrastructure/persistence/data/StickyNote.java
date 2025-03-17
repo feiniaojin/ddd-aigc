@@ -1,5 +1,6 @@
 package com.feiniaojin.ddd.aigc.infrastructure.persistence.data;
 
+import jakarta.annotation.Generated;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -7,7 +8,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.relational.core.mapping.Table;
 
-import javax.annotation.Generated;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -62,7 +62,7 @@ public class StickyNote implements Serializable {
      * 创建时间
      */
      @CreatedDate
-    private Date createdTime;
+    private Date createdDate;
     /**
      * 更新人
      */
@@ -71,7 +71,7 @@ public class StickyNote implements Serializable {
      * 更新时间
      */
     @LastModifiedDate
-    private Date modifiedTime;
+    private Date lastModifiedDate;
     /**
      * 乐观锁
      */

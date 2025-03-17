@@ -1,10 +1,10 @@
 package com.feiniaojin.ddd.aigc.infrastructure.persistence.mapper;
 
 import com.feiniaojin.ddd.aigc.infrastructure.persistence.data.Diary;
+import jakarta.annotation.Generated;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Generated;
 import java.util.List;
 import java.util.Map;
 

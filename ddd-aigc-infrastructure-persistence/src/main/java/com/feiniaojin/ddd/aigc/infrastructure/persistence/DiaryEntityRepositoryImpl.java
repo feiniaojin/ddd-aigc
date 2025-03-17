@@ -5,9 +5,9 @@ import com.feiniaojin.ddd.aigc.domain.DiaryEntityId;
 import com.feiniaojin.ddd.aigc.domain.DiaryEntityRepository;
 import com.feiniaojin.ddd.aigc.infrastructure.persistence.data.Diary;
 import com.feiniaojin.ddd.aigc.infrastructure.persistence.jdbc.DiaryJdbcRepository;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 
 @Component
 public class DiaryEntityRepositoryImpl implements DiaryEntityRepository {
@@ -34,8 +34,8 @@ public class DiaryEntityRepositoryImpl implements DiaryEntityRepository {
         diary.setVersion(entity.getVersion());
         diary.setId(entity.getId());
         diary.setDeleted(entity.getDeleted());
-        diary.setCreatedTime(entity.getCreatedTime());
-        diary.setModifiedTime(entity.getModifiedTime());
+        diary.setCreatedDate(entity.getCreatedDate());
+        diary.setLastModifiedDate(entity.getCreatedDate());
 
         diaryJdbcRepository.save(diary);
     }

@@ -2,9 +2,9 @@ package com.feiniaojin.ddd.aigc.application.service.stickynote;
 
 import com.feiniaojin.ddd.aigc.application.service.stickynote.dto.*;
 import com.feiniaojin.ddd.aigc.domain.*;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 
 @Service
 public class StickyNoteCommandApplicationService {

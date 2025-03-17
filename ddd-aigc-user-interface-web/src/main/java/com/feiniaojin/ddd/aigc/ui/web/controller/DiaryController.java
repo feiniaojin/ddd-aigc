@@ -7,11 +7,11 @@ import com.feiniaojin.ddd.aigc.application.service.diary.dto.DiaryCreateView;
 import com.feiniaojin.ddd.aigc.application.service.diary.dto.DiaryQuery;
 import com.feiniaojin.ddd.aigc.application.service.diary.dto.DiaryView;
 import com.feiniaojin.gracefulresponse.data.PageBean;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/diary")

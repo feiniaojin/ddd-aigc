@@ -5,9 +5,9 @@ import com.feiniaojin.ddd.aigc.application.service.diary.dto.DiaryView;
 import com.feiniaojin.ddd.aigc.infrastructure.persistence.data.Diary;
 import com.feiniaojin.ddd.aigc.infrastructure.persistence.mapper.DiaryMapper;
 import com.feiniaojin.gracefulresponse.data.PageBean;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

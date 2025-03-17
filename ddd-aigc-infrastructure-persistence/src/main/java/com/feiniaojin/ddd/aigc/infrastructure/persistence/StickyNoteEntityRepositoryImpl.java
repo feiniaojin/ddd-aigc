@@ -8,9 +8,9 @@ import com.feiniaojin.ddd.aigc.infrastructure.persistence.data.StickyNote;
 import com.feiniaojin.ddd.aigc.infrastructure.persistence.jdbc.StickyNoteJdbcRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +44,8 @@ public class StickyNoteEntityRepositoryImpl implements StickyNoteEntityRepositor
         entity.setId(stickyNote.getId());
         entity.setDeleted(stickyNote.getDeleted());
         entity.setVersion(stickyNote.getVersion());
-        entity.setCreatedTime(stickyNote.getCreatedTime());
-        entity.setModifiedTime(stickyNote.getModifiedTime());
+        entity.setCreatedDate(stickyNote.getCreatedDate());
+        entity.setLastModifiedDate(stickyNote.getLastModifiedDate());
 
         return entity;
     }
@@ -65,8 +65,8 @@ public class StickyNoteEntityRepositoryImpl implements StickyNoteEntityRepositor
         stickyNote.setId(entity.getId());
         stickyNote.setVersion(entity.getVersion());
         stickyNote.setDeleted(entity.getDeleted());
-        stickyNote.setCreatedTime(entity.getCreatedTime());
-        stickyNote.setModifiedTime(entity.getModifiedTime());
+        stickyNote.setCreatedDate(entity.getCreatedDate());
+        stickyNote.setLastModifiedDate(entity.getLastModifiedDate());
 
         jdbcRepository.save(stickyNote);
     }

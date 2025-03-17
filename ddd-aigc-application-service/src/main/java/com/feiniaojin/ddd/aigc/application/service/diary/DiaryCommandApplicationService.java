@@ -5,9 +5,9 @@ import com.feiniaojin.ddd.aigc.application.service.diary.dto.DiaryCreateView;
 import com.feiniaojin.ddd.aigc.domain.DiaryEntity;
 import com.feiniaojin.ddd.aigc.domain.DiaryEntityFactory;
 import com.feiniaojin.ddd.aigc.domain.DiaryEntityRepository;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 
 @Service
 public class DiaryCommandApplicationService {
