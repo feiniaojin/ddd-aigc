@@ -6,7 +6,7 @@ server:
 spring:
   mvc:
     async:
-      request-timeout: 60000
+      request-timeout: 300000
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss

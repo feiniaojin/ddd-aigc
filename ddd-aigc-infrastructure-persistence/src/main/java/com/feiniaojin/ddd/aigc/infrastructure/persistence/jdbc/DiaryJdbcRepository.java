@@ -1,7 +1,9 @@
 package com.feiniaojin.ddd.aigc.infrastructure.persistence.jdbc;
 
 import com.feiniaojin.ddd.aigc.infrastructure.persistence.data.Diary;
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -12,4 +14,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DiaryJdbcRepository extends CrudRepository<Diary, Long> {
+
+    @Query("select * from t_diary where diary_id=:diaryId limit 1")
+    Diary findByDiaryId(@Param("diaryId") String diaryId);
 }

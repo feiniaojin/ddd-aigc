@@ -2,10 +2,7 @@ package com.feiniaojin.ddd.aigc.ui.web.controller;
 
 import com.feiniaojin.ddd.aigc.application.service.diary.DiaryCommandApplicationService;
 import com.feiniaojin.ddd.aigc.application.service.diary.DiaryQueryApplicationService;
-import com.feiniaojin.ddd.aigc.application.service.diary.dto.DiaryCreateCommand;
-import com.feiniaojin.ddd.aigc.application.service.diary.dto.DiaryCreateView;
-import com.feiniaojin.ddd.aigc.application.service.diary.dto.DiaryQuery;
-import com.feiniaojin.ddd.aigc.application.service.diary.dto.DiaryView;
+import com.feiniaojin.ddd.aigc.application.service.diary.dto.*;
 import com.feiniaojin.gracefulresponse.data.PageBean;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,4 +30,9 @@ public class DiaryController {
         return queryApplicationService.pageList(query);
     }
 
+
+    @RequestMapping("/saveContent")
+    public void saveContent(@RequestBody DiarySaveContentCommand command) {
+        commandApplicationService.saveContent(command);
+    }
 }

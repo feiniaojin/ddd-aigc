@@ -43,7 +43,9 @@ public class LlmGatewayImpl implements LlmGateway {
             messages.add(userMessage);
         }
         Prompt prompt = new Prompt(messages);
-        return llmProvider.generateContent(prompt);
+        StickyNoteEntity noteEntity = stickyNoteEntities.get(0);
+        String conversationId = noteEntity.getUid() + noteEntity.getDiaryEntityId();
+        return llmProvider.generateContent(prompt,conversationId);
     }
 
     /**

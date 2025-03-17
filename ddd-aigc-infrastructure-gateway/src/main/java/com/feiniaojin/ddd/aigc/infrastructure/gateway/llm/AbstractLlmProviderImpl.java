@@ -1,6 +1,7 @@
 package com.feiniaojin.ddd.aigc.infrastructure.gateway.llm;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
 import reactor.core.publisher.Flux;
@@ -21,10 +22,13 @@ public abstract class AbstractLlmProviderImpl implements LlmProvider {
     }
 
     @Override
-    public String generateContent(Prompt prompt) {
+    public String generateContent(Prompt prompt, String conversationId) {
         Optional<ChatOptions> runtimeOptions = runtimeOptions();
         ChatClient.ChatClientRequestSpec requestSpec = chatClient.prompt(prompt);
         runtimeOptions.ifPresent(requestSpec::options);
+        requestSpec.advisors(advisor ->
+                advisor.param(AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY, conversationId)
+        );
         return requestSpec.call().content();
     }
 
@@ -38,10 +42,13 @@ public abstract class AbstractLlmProviderImpl implements LlmProvider {
     }
 
     @Override
-    public Flux<String> generateContentStream(Prompt prompt) {
+    public Flux<String> generateContentStream(Prompt prompt, String conversationId) {
         Optional<ChatOptions> runtimeOptions = runtimeOptions();
         ChatClient.ChatClientRequestSpec requestSpec = chatClient.prompt(prompt);
         runtimeOptions.ifPresent(requestSpec::options);
+        requestSpec.advisors(advisor ->
+                advisor.param(AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY, conversationId)
+        );
         return requestSpec.stream().content();
     }
 }

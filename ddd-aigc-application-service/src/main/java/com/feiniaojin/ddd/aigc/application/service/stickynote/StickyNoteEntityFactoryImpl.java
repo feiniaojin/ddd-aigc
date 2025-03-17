@@ -4,6 +4,9 @@ import com.feiniaojin.ddd.aigc.domain.DiaryEntityId;
 import com.feiniaojin.ddd.aigc.domain.StickyNoteEntity;
 import com.feiniaojin.ddd.aigc.domain.StickyNoteEntityFactory;
 import com.feiniaojin.ddd.aigc.domain.StickyNoteEntityId;
+import com.feiniaojin.ddd.aigc.infrastructure.persistence.data.Diary;
+import com.feiniaojin.ddd.aigc.infrastructure.persistence.jdbc.DiaryJdbcRepository;
+import jakarta.annotation.Resource;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -15,6 +18,9 @@ import java.util.List;
 
 @Component
 public class StickyNoteEntityFactoryImpl implements StickyNoteEntityFactory {
+
+    @Resource
+    private DiaryJdbcRepository diaryJdbcRepository;
 
     @Override
     public StickyNoteEntity newInstance(String uid, String diaryId, String content, List<String> participants, String occurrenceTimeStr) {
@@ -30,8 +36,10 @@ public class StickyNoteEntityFactoryImpl implements StickyNoteEntityFactory {
         if (StringUtils.isBlank(occurrenceTimeStr)) {
             throw new IllegalArgumentException();
         }
+        Diary diary = diaryJdbcRepository.findByDiaryId(diaryId);
         try {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            occurrenceTimeStr = diary.getDiaryDateStr() + " " + occurrenceTimeStr;
+            DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
             Date parse = dateFormat.parse(occurrenceTimeStr);
             entity.setOccurrenceTime(parse);
         } catch (Exception e) {

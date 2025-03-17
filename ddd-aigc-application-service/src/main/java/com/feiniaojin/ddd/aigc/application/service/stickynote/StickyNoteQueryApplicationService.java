@@ -75,14 +75,16 @@ public class StickyNoteQueryApplicationService {
         messages.add(systemMessage);
         String userInput = query.getUserInput();
         if (StringUtils.isBlank(userInput)) {
-            UserMessage userMessage = new UserMessage("首次生成");
+            UserMessage userMessage = new UserMessage("风格、字数等无限制");
             messages.add(userMessage);
-        }else {
+        } else {
             UserMessage userMessage = new UserMessage(userInput);
             messages.add(userMessage);
         }
         Prompt prompt = new Prompt(messages);
-        return llmProvider.generateContentStream(prompt);
+        StickyNote stickyNote = stickyNotes.get(0);
+        String conversationId = stickyNote.getUid() + stickyNote.getDiaryId();
+        return llmProvider.generateContentStream(prompt, conversationId);
     }
 
     /**

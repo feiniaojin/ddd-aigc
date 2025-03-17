@@ -8,10 +8,8 @@ import jakarta.annotation.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
@@ -60,7 +58,7 @@ public class StickyNoteController {
     @RequestMapping(value = "/generateDiaryContentSse",
             produces = "text/event-stream")
     public SseEmitter generateDiaryContentSse(StickyNoteGenerateContentQuery query) {
-        SseEmitter emitter = new SseEmitterUTF8(120_000L);
+        SseEmitter emitter = new SseEmitterUTF8(300_000L);
         Flux<String> stringFlux = queryApplicationService.generateDiaryContentStream(query);
         asyncExecutor.execute(() -> {
             stringFlux.subscribe(data -> {

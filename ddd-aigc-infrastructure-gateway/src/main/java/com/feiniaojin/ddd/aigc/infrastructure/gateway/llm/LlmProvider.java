@@ -10,9 +10,9 @@ public interface LlmProvider {
 
     String providerName();
 
-    String generateContent(Prompt prompt);
+    String generateContent(Prompt prompt, String conversationId);
 
-    default Flux<String> generateContentStream(Prompt prompt) {
+    default Flux<String> generateContentStream(Prompt prompt, String conversationId) {
         throw new UnsupportedOperationException("待实现");
     }
 

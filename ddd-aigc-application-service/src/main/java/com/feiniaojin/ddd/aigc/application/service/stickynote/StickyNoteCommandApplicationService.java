@@ -5,6 +5,9 @@ import com.feiniaojin.ddd.aigc.domain.*;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 @Service
 public class StickyNoteCommandApplicationService {
@@ -15,13 +18,15 @@ public class StickyNoteCommandApplicationService {
     @Resource
     private StickyNoteEntityRepository repository;
 
-
     public StickyNoteCreateView createStickyNote(StickyNoteCreateCommand command) {
+
+        String string = command.getParticipants();
+        List<String> list = Arrays.stream(string.split(",")).toList();
 
         StickyNoteEntity entity = factory.newInstance(command.getUid(),
                 command.getDiaryId(),
                 command.getContent(),
-                command.getParticipants(),
+                list,
                 command.getOccurrenceTimeStr());
 
         entity.completeCreate();

@@ -38,6 +38,9 @@ public class DiaryEntity extends AbstractDomainMask {
 
     public void create() {
 
+    }
 
+    public void modifyContent(String content) {
+        this.content = content;
     }
 }

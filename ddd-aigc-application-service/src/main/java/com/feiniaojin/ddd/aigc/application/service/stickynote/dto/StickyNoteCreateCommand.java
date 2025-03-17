@@ -13,7 +13,7 @@ public class StickyNoteCreateCommand {
 
     private String content;
 
-    private List<String> participants;
+    private String participants;
 
     private String occurrenceTimeStr;
 }

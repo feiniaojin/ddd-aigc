@@ -40,7 +40,8 @@ public class LlmConfig {
     @Bean
     public ChatClient deepSeekOfficialClient(@Value("${spring.ai.providers.deepseek-official.base-url}") String baseUrl,
                                              @Value("${spring.ai.providers.deepseek-official.api-key}") String apiKey,
-                                             @Value("${spring.ai.providers.deepseek-official.model}") String model) {
+                                             @Value("${spring.ai.providers.deepseek-official.model}") String model,
+                                             ChatMemory chatMemory) {
 
         ApiKey apiKey1 = (new SimpleApiKey(apiKey));
 
@@ -54,14 +55,16 @@ public class LlmConfig {
 
         OpenAiChatModel openAiChatModel = new OpenAiChatModel(openAiApi, openAiChatOptions, callingManager, RetryUtils.DEFAULT_RETRY_TEMPLATE, ObservationRegistry.NOOP);
 
-        return ChatClient.builder(openAiChatModel).build();
+        return ChatClient.builder(openAiChatModel).defaultOptions(openAiChatOptions)
+                .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory)).build();
     }
 
     //硅基流动
     @Bean
     public ChatClient siliconflowClient(@Value("${spring.ai.providers.siliconflow.base-url}") String baseUrl,
                                         @Value("${spring.ai.providers.siliconflow.api-key}") String apiKey,
-                                        @Value("${spring.ai.providers.siliconflow.model}") String model) {
+                                        @Value("${spring.ai.providers.siliconflow.model}") String model,
+                                        ChatMemory chatMemory) {
         ApiKey apiKey1 = (new SimpleApiKey(apiKey));
 
         OpenAiApi openAiApi = new OpenAiApi(baseUrl, apiKey1, CollectionUtils.toMultiValueMap(Map.of()),
@@ -74,7 +77,9 @@ public class LlmConfig {
 
         OpenAiChatModel openAiChatModel = new OpenAiChatModel(openAiApi, openAiChatOptions, callingManager, RetryUtils.DEFAULT_RETRY_TEMPLATE, ObservationRegistry.NOOP);
 
-        return ChatClient.builder(openAiChatModel).build();
+        return ChatClient.builder(openAiChatModel)
+                .defaultOptions(openAiChatOptions)
+                .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory)).build();
     }
 
 
@@ -82,7 +87,8 @@ public class LlmConfig {
     @Bean
     public ChatClient openAIClient(@Value("${spring.ai.providers.openai.base-url}") String baseUrl,
                                    @Value("${spring.ai.providers.openai.api-key}") String apiKey,
-                                   @Value("${spring.ai.providers.openai.model}") String model) {
+                                   @Value("${spring.ai.providers.openai.model}") String model,
+                                   ChatMemory chatMemory) {
         ApiKey apiKey1 = new SimpleApiKey(apiKey);
 
         OpenAiApi openAiApi = new OpenAiApi(baseUrl, apiKey1, CollectionUtils.toMultiValueMap(Map.of()),
@@ -95,7 +101,9 @@ public class LlmConfig {
 
         OpenAiChatModel openAiChatModel = new OpenAiChatModel(openAiApi, openAiChatOptions, callingManager, RetryUtils.DEFAULT_RETRY_TEMPLATE, ObservationRegistry.NOOP);
 
-        return ChatClient.builder(openAiChatModel).defaultOptions(openAiChatOptions).build();
+        return ChatClient.builder(openAiChatModel)
+                .defaultOptions(openAiChatOptions)
+                .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory)).build();
     }
 
     // Ollama本地部署配置
@@ -117,7 +125,8 @@ public class LlmConfig {
                 .modelManagementOptions(ModelManagementOptions.defaults())
                 .build();
 
-        return ChatClient.builder(ollamaChatModel).defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory)).build();
+        return ChatClient.builder(ollamaChatModel)
+                .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory)).build();
     }
 
     /**

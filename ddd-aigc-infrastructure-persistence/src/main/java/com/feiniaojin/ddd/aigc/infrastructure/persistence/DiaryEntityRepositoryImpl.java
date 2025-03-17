@@ -17,7 +17,24 @@ public class DiaryEntityRepositoryImpl implements DiaryEntityRepository {
 
     @Override
     public DiaryEntity load(DiaryEntityId entityId) {
-        return null;
+
+        Diary diary = diaryJdbcRepository.findByDiaryId(entityId.getValue());
+
+        DiaryEntity entity = new DiaryEntity();
+
+        entity.setDiaryEntityId(entityId);
+        entity.setContent(diary.getContent());
+        entity.setUid(diary.getUid());
+        entity.setDiaryDateStr(diary.getDiaryDateStr());
+        entity.setDiaryDate(diary.getDiaryDate());
+
+        entity.setId(diary.getId());
+        entity.setCreatedBy(diary.getCreatedBy());
+        entity.setCreatedDate(diary.getCreatedDate());
+        entity.setLastModifiedBy(diary.getModifiedBy());
+        entity.setLastModifiedDate(diary.getLastModifiedDate());
+        entity.setVersion(diary.getVersion());
+        return entity;
     }
 
     @Override
