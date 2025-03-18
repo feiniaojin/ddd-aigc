@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
@@ -47,6 +48,8 @@ public class StickyNoteQueryApplicationService {
     @Resource
     private LlmConfig llmConfig;
 
+    @Resource
+    private ChatMemory chatMemory;
 
     private PageBean<StickyNoteView> pageList(StickyNoteQuery query) {
 
@@ -65,25 +68,27 @@ public class StickyNoteQueryApplicationService {
 
     public Flux<String> generateDiaryContentStream(StickyNoteGenerateContentQuery query) {
         String diaryId = query.getDiaryId();
-        //直接查询
+        String uid = query.getUid();
+        String conversationId = uid + diaryId;
+        List<Message> lastMessage = chatMemory.get(conversationId, 1);
+        List<Message> messages = new ArrayList<>();
+
+        //首次增加系统提示词
+        if (CollectionUtils.isEmpty(lastMessage)) {
+            SystemMessage systemMessage = new SystemMessage(llmConfig.getDefaultSystemMessage());
+            messages.add(systemMessage);
+        }
+        //简单处理，每次都查库，避免贴纸有新增
         List<StickyNote> stickyNotes = stickyNoteJdbcRepository.queryListByDiaryId(diaryId);
         String content = noteContent(stickyNotes);
+        String userInput = query.getUserInput();
+        UserMessage userMessage = new UserMessage(content + userInput);
+        messages.add(userMessage);
+
         String providerName = llmConfig.getProviderName();
         LlmProvider llmProvider = llmProviderRegister.getLlmProvider(providerName);
-        SystemMessage systemMessage = new SystemMessage(llmConfig.getDefaultSystemMessage() + content);
-        List<Message> messages = new ArrayList<>();
-        messages.add(systemMessage);
-        String userInput = query.getUserInput();
-        if (StringUtils.isBlank(userInput)) {
-            UserMessage userMessage = new UserMessage("风格、字数等无限制");
-            messages.add(userMessage);
-        } else {
-            UserMessage userMessage = new UserMessage(userInput);
-            messages.add(userMessage);
-        }
+
         Prompt prompt = new Prompt(messages);
-        StickyNote stickyNote = stickyNotes.get(0);
-        String conversationId = stickyNote.getUid() + stickyNote.getDiaryId();
         return llmProvider.generateContentStream(prompt, conversationId);
     }
 

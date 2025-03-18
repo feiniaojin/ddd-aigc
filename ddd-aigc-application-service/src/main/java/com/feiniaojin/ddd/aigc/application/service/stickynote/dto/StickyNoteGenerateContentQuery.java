@@ -12,4 +12,5 @@ public class StickyNoteGenerateContentQuery {
 
     private String userInput;
 
+    public String uid;
 }

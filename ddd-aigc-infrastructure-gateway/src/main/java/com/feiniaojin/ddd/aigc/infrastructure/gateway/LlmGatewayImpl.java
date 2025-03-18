@@ -6,6 +6,7 @@ import com.feiniaojin.ddd.aigc.infrastructure.gateway.llm.LlmProvider;
 import com.feiniaojin.ddd.aigc.infrastructure.gateway.llm.LlmProviderRegister;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
@@ -30,22 +31,34 @@ public class LlmGatewayImpl implements LlmGateway {
     @Resource
     private LlmConfig llmConfig;
 
+    @Resource
+    private ChatMemory chatMemory;
+
     @Override
     public String generateContent(List<StickyNoteEntity> stickyNoteEntities, String userInput) {
-        String noteContent = noteContent(stickyNoteEntities);
+        StickyNoteEntity note = stickyNoteEntities.get(0);
+        String uid = note.getUid();
+        String diaryId = note.getDiaryEntityId().getValue();
+
+        String conversationId = uid + diaryId;
+        List<Message> lastMessage = chatMemory.get(conversationId, 1);
+        List<Message> messages = new ArrayList<>();
+
+        //首次增加系统提示词
+        if (CollectionUtils.isEmpty(lastMessage)) {
+            SystemMessage systemMessage = new SystemMessage(llmConfig.getDefaultSystemMessage());
+            messages.add(systemMessage);
+        }
+
+        //简单处理，避免贴纸有新增
+        String content = noteContent(stickyNoteEntities);
+        UserMessage userMessage = new UserMessage(content + userInput);
+        messages.add(userMessage);
+
         String providerName = llmConfig.getProviderName();
         LlmProvider llmProvider = llmProviderRegister.getLlmProvider(providerName);
-        SystemMessage systemMessage = new SystemMessage(llmConfig.getDefaultSystemMessage() + noteContent);
-        List<Message> messages = new ArrayList<>();
-        messages.add(systemMessage);
-        if (StringUtils.isNoneBlank(userInput)) {
-            UserMessage userMessage = new UserMessage(userInput);
-            messages.add(userMessage);
-        }
         Prompt prompt = new Prompt(messages);
-        StickyNoteEntity noteEntity = stickyNoteEntities.get(0);
-        String conversationId = noteEntity.getUid() + noteEntity.getDiaryEntityId();
-        return llmProvider.generateContent(prompt,conversationId);
+        return llmProvider.generateContent(prompt, conversationId);
     }
 
     /**

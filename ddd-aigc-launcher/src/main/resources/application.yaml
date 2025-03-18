@@ -67,6 +67,6 @@ graceful-response:
 
 ddd-aigc:
     provider-name: ollama
-    default-system-message: 根据以下提示，生成一篇日记。：
+    default-system-message: 根据提示，生成一篇日记，要求不得涉及政治、色情等内容。
 
 
