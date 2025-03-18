@@ -31,9 +31,6 @@ public class LlmGatewayImpl implements LlmGateway {
     @Resource
     private LlmConfig llmConfig;
 
-    @Resource
-    private ChatMemory chatMemory;
-
     @Override
     public String generateContent(List<StickyNoteEntity> stickyNoteEntities, String userInput) {
         StickyNoteEntity note = stickyNoteEntities.get(0);
@@ -41,14 +38,11 @@ public class LlmGatewayImpl implements LlmGateway {
         String diaryId = note.getDiaryEntityId().getValue();
 
         String conversationId = uid + diaryId;
-        List<Message> lastMessage = chatMemory.get(conversationId, 1);
         List<Message> messages = new ArrayList<>();
 
-        //首次增加系统提示词
-        if (CollectionUtils.isEmpty(lastMessage)) {
-            SystemMessage systemMessage = new SystemMessage(llmConfig.getDefaultSystemMessage());
-            messages.add(systemMessage);
-        }
+        //增加系统提示词，每次都提供
+        SystemMessage systemMessage = new SystemMessage(llmConfig.getDefaultSystemMessage());
+        messages.add(systemMessage);
 
         //简单处理，避免贴纸有新增
         String content = noteContent(stickyNoteEntities);

@@ -15,8 +15,6 @@ import com.feiniaojin.gracefulresponse.data.PageBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import jakarta.annotation.Resource;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
@@ -48,9 +46,6 @@ public class StickyNoteQueryApplicationService {
     @Resource
     private LlmConfig llmConfig;
 
-    @Resource
-    private ChatMemory chatMemory;
-
     private PageBean<StickyNoteView> pageList(StickyNoteQuery query) {
 
         return null;
@@ -70,14 +65,11 @@ public class StickyNoteQueryApplicationService {
         String diaryId = query.getDiaryId();
         String uid = query.getUid();
         String conversationId = uid + diaryId;
-        List<Message> lastMessage = chatMemory.get(conversationId, 1);
         List<Message> messages = new ArrayList<>();
 
-        //首次增加系统提示词
-        if (CollectionUtils.isEmpty(lastMessage)) {
-            SystemMessage systemMessage = new SystemMessage(llmConfig.getDefaultSystemMessage());
-            messages.add(systemMessage);
-        }
+        //增加系统提示词
+        SystemMessage systemMessage = new SystemMessage(llmConfig.getDefaultSystemMessage());
+        messages.add(systemMessage);
         //简单处理，每次都查库，避免贴纸有新增
         List<StickyNote> stickyNotes = stickyNoteJdbcRepository.queryListByDiaryId(diaryId);
         String content = noteContent(stickyNotes);
